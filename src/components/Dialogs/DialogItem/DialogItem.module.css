@@ -1,0 +1,6 @@
+.dialog {
+    color: #888da8;
+}
+.dialog.active {
+    color: #515365;
+}

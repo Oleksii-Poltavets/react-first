@@ -1,37 +1,27 @@
+body {
+    overflow: hidden;
+    background-color: #d6d6d6;
+}
+
 .app-wrapper {
     display: grid;
     grid-template-rows: 70px 1fr 70px;
     grid-template-columns: 2fr 10fr;
-    grid-gap: 10px;
     grid-template-areas: 'header header' 'nav cont' 'footer footer';
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 
-.header {
-    grid-area: header;
-    background: olivedrab;
-    padding-left: 15px;
-    padding-right: 15px;
-}
-.logo {
-    max-width: 75px;
-}
-.nav {
-    grid-area: nav;
-    background: rgb(85, 209, 209);
-}
-
-.content {
+.app-wrapper-content {
     grid-area: cont;
-    background: antiquewhite;
+    background: #fff;
     min-height: 100%;
-}
-
-.footer {
-    grid-area: footer;
-    padding-left: 15px;
-    padding-right: 15px;
-    background: olive;
+    max-height: calc(100vh - 70px);
+    overflow-y: scroll;
 }

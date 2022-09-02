@@ -1,0 +1,9 @@
+.header {
+    grid-area: header;
+    background: #888da8;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.logo {
+    max-width: 75px;
+}

@@ -1,0 +1,13 @@
+.myPosts {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.textarea {
+    width: 280px;
+    padding: 8px;
+    resize: none;
+}
+
+.button_add {
+    display: block;
+}

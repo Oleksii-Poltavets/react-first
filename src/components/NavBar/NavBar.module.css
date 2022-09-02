@@ -1,0 +1,25 @@
+.nav {
+    grid-area: nav;
+    background: #edf2f6;
+    padding: 15px;
+}
+
+.nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav__link a{
+    color: #9a9fbf;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.nav__link a:hover {
+    color: #ff5e3a;
+}
+
+a.active {
+    color: #7a80a5;
+    font-weight: 700;
+}
