@@ -1,5 +1,13 @@
 .dialog {
     color: #888da8;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+.dialog .avatar {
+    max-width: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
 }
 .dialog.active {
     color: #515365;

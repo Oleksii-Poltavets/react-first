@@ -6,9 +6,15 @@ import styles from './Profile.module.css';
 const Profile = (props) => {
 
     return (
-        <div>
+        <div className={styles.profileWrapper}>
             <ProfileInfo/>
-            <MyPosts postsData={props.postsData}/>
+            <MyPosts 
+            dispatch={props.dispatch}
+            postsData={props.state.postsData}
+            newPostText={props.state.newPostText}
+            addPostAC={props.addPostAC}
+            updateNewPostTextAC={props.updateNewPostTextAC}
+            />
         </div>
     )
 }

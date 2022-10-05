@@ -2,6 +2,14 @@
     grid-area: nav;
     background: #edf2f6;
     padding: 15px;
+    border-right: 1px solid #c4c4c4;
+    border-bottom: 1px solid #c4c4c4;
+    -webkit-box-shadow: 2px 0px 4px 0px rgba(196,196,196,1);
+    -moz-box-shadow: 2px 0px 4px 0px rgba(196,196,196,1);
+    box-shadow: 2px 0px 4px 0px rgba(196,196,196,1);
+    position: relative;
+    z-index: 1;
+    min-height: calc(100vh - 70px);
 }
 
 .nav ul {
