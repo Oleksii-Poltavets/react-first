@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './NavBar.module.css';
 import { NavLink } from 'react-router-dom';
-import CloseFriends from './CloseFriends/CloseFriends';
+import CloseFriendsContainer from './CloseFriends/CloseFriendsContainer';
 
 const NavBar = (props) => {
     return (
@@ -20,7 +20,7 @@ const NavBar = (props) => {
                     <NavLink to="/music" className={navData => navData.isActive ? styles.active : styles.nav__link}>Music</NavLink>
                 </li>
             </ul>
-            <CloseFriends state={props.state} store={props.store}/>
+            <CloseFriendsContainer/>
         </nav>
     )
 }

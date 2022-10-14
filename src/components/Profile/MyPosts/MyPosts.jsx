@@ -5,18 +5,18 @@ const MyPosts = (props) => {
 
     const textArea = React.createRef();
     
-    const addPost = () => {
-        let text = props.newPostText;
-        props.dispatch(props.addPostAC(text));
+    const onAddPost = () => {
+        let text = props.profilePage.newPostText;
+        props.addPost(text);
         textArea.current.value = '';
     };
 
-    const updateNewPostText = () => {
+    const onUpdateNewPostText = () => {
         let text = textArea.current.value;
-        props.dispatch(props.updateNewPostTextAC(text));
+        props.updateNewPostText(text);
     };
 
-    const postElements = props.postsData
+    const postElements = props.profilePage.postsData
     .map(postData => <Post message={postData.message} likesCounter={postData.likes}/>);
 
     return (
@@ -26,10 +26,10 @@ const MyPosts = (props) => {
             className={styles.textarea} 
             placeholder='Type your text...'
             ref={textArea}
-            onChange={updateNewPostText}
-            defaultValue={props.newPostText}></textarea>
+            onChange={onUpdateNewPostText}
+            defaultValue={props.profilePage.newPostText}></textarea>
             <button className={styles.button_add}
-            onClick={addPost}>Add post</button>
+            onClick={onAddPost}>Add post</button>
             {postElements}
         </div>
     )

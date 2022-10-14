@@ -6,9 +6,10 @@ import Message from './Message/Message';
 
 const Dialogs = (props) => {
 
-    const dialogsElements = props.state.dialogItemsData
+    const dialogsElements = props.dialogsPage.dialogItemsData
     .map(dialog => <DialogItem avatar={dialog.avatar} name={dialog.name} id={dialog.id}/>);
-    const messagesElements = props.state.messagesData
+    
+    const messagesElements = props.dialogsPage.messagesData
         .map((message) =>  {
             if(message.from === 'from') {
                 return <Message className={`${styles.message}`} avatar={message.avatar} messageText={message.message} id={message.id}/>
@@ -21,11 +22,11 @@ const Dialogs = (props) => {
     const textArea = React.createRef();
     const updateNewMessageText = () => {
         let text = textArea.current.value;
-        props.dispatch(props.updateNewMessageTextAC(text));
+        props.updateNewMessageText(text);
     };
     const sendMessage = () => {
         let text = textArea.current.value;
-        props.dispatch(props.sendMessageAC(text));
+        props.sendMessage(text);
     }
 
     return (
@@ -42,7 +43,7 @@ const Dialogs = (props) => {
                     name="addMessage" 
                     placeholder='Message'
                     ref={textArea}
-                    value={props.state.newMessageText}
+                    value={props.dialogsPage.newMessageText}
                     onChange={updateNewMessageText}></textarea>
                     <button onClick={sendMessage} className={styles.sendButton}>Send</button>
                 </div>

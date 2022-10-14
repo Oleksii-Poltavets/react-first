@@ -3,7 +3,7 @@ import styles from './CloseFriends.module.css';
 
 const CloseFriends = (props) => {
     
-    const closeFriendsItems = props.state.closeFriends.map(friend => 
+    const closeFriendsItems = props.closeFriends.map(friend => 
                 <div>
                     <img className={styles.avatar} src={friend.avatar} alt="img" />
                     <p className={styles.name}>{friend.name}</p>
