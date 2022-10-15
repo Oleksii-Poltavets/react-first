@@ -19,18 +19,22 @@ let initialState = {
 
 const dialogsPageReducer = (state = initialState, action) => {
     switch(action.type) {
-        case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.newText;
-            return state;
-        case SEND_MESSAGE:
+        case UPDATE_NEW_MESSAGE_TEXT: 
+            return  {
+                ...state,
+                newMessageText: action.newText,
+            };
+        case SEND_MESSAGE: 
             const newMessageTo = {
                 avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnoR5PHuEu2C3bcMN7kOLHrStpF1-pY6nmA&usqp=CAU',
-                message: action.messageText, 
-                id: 5,
-                from: 'to'}
-            state.messagesData.push(newMessageTo);
-            state.newMessageText = '';
-            return state;
+                message: action.messageText,
+                id: (state.messagesData.length + 2),
+                from: 'to'};
+            return {
+                ...state,
+                messagesData: [...state.messagesData, newMessageTo],
+                newMessageText: '',
+            };
         default:
             return state;
     }

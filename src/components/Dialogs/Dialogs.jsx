@@ -7,14 +7,14 @@ import Message from './Message/Message';
 const Dialogs = (props) => {
 
     const dialogsElements = props.dialogsPage.dialogItemsData
-    .map(dialog => <DialogItem avatar={dialog.avatar} name={dialog.name} id={dialog.id}/>);
+    .map(dialog => <DialogItem key={dialog.id} avatar={dialog.avatar} name={dialog.name} id={dialog.id}/>);
     
     const messagesElements = props.dialogsPage.messagesData
         .map((message) =>  {
             if(message.from === 'from') {
-                return <Message className={`${styles.message}`} avatar={message.avatar} messageText={message.message} id={message.id}/>
+                return <Message key={message.id} className={`${styles.message}`} avatar={message.avatar} messageText={message.message} id={message.id}/>
             } else if (message.from === 'to') {
-                return <Message className={`${styles.message} ${styles.from}`} avatar={message.avatar} messageText={message.message} id={message.id}/>
+                return <Message key={message.id} className={`${styles.message} ${styles.from}`} avatar={message.avatar} messageText={message.message} id={message.id}/>
             }
             return 'Your message have no "from" vlaue';
         });
