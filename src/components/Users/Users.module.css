@@ -1,8 +1,85 @@
 .users {
     overflow-y: scroll;
     height: calc(100vh - 70px);
+    padding: 15px;
+}
+
+.title {
+    text-align: center;
+    margin-top: 0;
+}
+
+.pagination {
+    padding: 15px 0 0;
+    max-width: 200px;
+    overflow-x: scroll;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+.paginationContainer {
+    display: flex;
+    max-width: auto;
+}
+
+.paginationItem {
+    padding: 0 5px;
+    cursor: pointer;
+    color: #9a9fbf;
+}
+
+.paginationItemActive {
+    font-weight: 700;
 }
 
 .user {
     display: flex;
+    padding: 15px;
+    border: 1px solid #cecece;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.avatar {
+    display: block;
+    max-width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+.button {
+    width: 85px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+    padding: 5px 0;
+    color: #ffffff;
+}
+
+.button.blue {
+    background-color: rgb(47, 100, 212);
+}
+
+.button.gray {
+    background-color: rgb(118, 118, 118);
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 15px;
+}
+
+.name {
+    margin-top: 0;
+}
+
+.status {
+    font-style: italic;
 }
