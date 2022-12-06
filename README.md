@@ -1,3 +1,5 @@
+I'm learning react by working on this project. I'm doing it with lessons on youtube from @ITKAMASUTRA path of samurai. It will be a social network where you can log in, add friends and chat with them.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
