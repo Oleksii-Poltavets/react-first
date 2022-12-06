@@ -40,7 +40,7 @@ const dialogsPageReducer = (state = initialState, action) => {
     }
 };
 
-export const sendMessageAC = (text) => ({type: SEND_MESSAGE, messageText: text});
-export const updateNewMessageTextAC = (text) => ({type: UPDATE_NEW_MESSAGE_TEXT, newText: text,});
+export const sendMessage = (text) => ({type: SEND_MESSAGE, messageText: text});
+export const updateNewMessageText = (text) => ({type: UPDATE_NEW_MESSAGE_TEXT, newText: text,});
 
 export default dialogsPageReducer;

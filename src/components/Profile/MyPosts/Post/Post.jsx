@@ -1,10 +1,12 @@
 import React from 'react';
 import styles from './Post.module.css';
+import avatar from '../../../../assets/images/avatar.jpg'
+
 const Post = (props) => {
     return (
         <div className={styles.post}>
             <div>
-                <img className={styles.avatar} src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnoR5PHuEu2C3bcMN7kOLHrStpF1-pY6nmA&usqp=CAU' alt='img'/>
+                <img className={styles.avatar} src={`${props.avatar ? props.avatar : avatar}`} alt='img'/>
                 ava+descr
                 <div>
                     <span>

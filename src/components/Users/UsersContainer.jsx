@@ -1,6 +1,33 @@
-import { followAC, unfollowAC, setUsersAC, setCurrentPageAC, setTotalUsersCountAC} from '../../redux/usersPageReducer';
-import { connect } from 'react-redux';
+import React from "react";
 import Users from './Users';
+import { setCurrentPage, toggleFollowingInProgress, getUsersTC, setUsersPageTC, followTC, unFollowTC} from '../../redux/usersPageReducer';
+import { connect } from 'react-redux';
+class UsersAPIContainer extends React.Component {
+    
+    componentDidMount() {
+        this.props.getUsersTC(this.props.currentPage, this.props.pageSize);
+    }
+
+    setCurrentUsersPage = (page) => {
+        this.props.setUsersPageTC(page, this.props.pageSize);
+    }
+
+    render() {
+        return  <Users
+                totalUsersCount={this.props.totalUsersCount}
+                pageSize={this.props.pageSize}
+                currentPage={this.props.currentPage}
+                users={this.props.users}
+                isFetch={this.props.isFetch}
+                setCurrentPage={this.setCurrentUsersPage}
+                followingInProgress={this.props.followingInProgress}
+                toggleFollowingInProgress={this.props.toggleFollowingInProgress}
+                followTC={this.props.followTC}
+                unFollowTC={this.props.unFollowTC}
+                />
+            
+    };
+};
 
 let mapStateToProps = (state) => {
     return {
@@ -8,29 +35,11 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
+        isFetch: state.usersPage.isFetch,
+        followingInProgress: state.usersPage.followingInProgress,
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => {
-            dispatch(followAC(userId));
-        },
-        unfollow: (userId) => {
-            dispatch(unfollowAC(userId));
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users));
-        },
-        setCurrentPage: (currentPage) => {
-            dispatch(setCurrentPageAC(currentPage));
-        },
-        setUsersCount: (totalUsers) => {
-            dispatch(setTotalUsersCountAC(totalUsers));
-        }
-    }
-};
-
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+const UsersContainer = connect(mapStateToProps, {setCurrentPage, toggleFollowingInProgress, getUsersTC, setUsersPageTC, followTC, unFollowTC})(UsersAPIContainer);
 
 export default UsersContainer;

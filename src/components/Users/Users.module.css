@@ -69,6 +69,10 @@
     background-color: rgb(118, 118, 118);
 }
 
+.button:disabled {
+    color: rgb(118, 118, 118);
+}
+
 .info {
     display: flex;
     justify-content: space-between;

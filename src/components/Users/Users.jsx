@@ -1,40 +1,27 @@
 import React from "react";
 import User from "./User/User";
 import styles from "./Users.module.css";
-import axios from 'axios';
-import avatarImage from '../../assets/images/avatar.jpg'
+import avatarImage from '../../assets/images/avatar.jpg';
+import Loader from '../common/Loader/Loader';
 
-class Users extends React.Component {
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(responce => {
-            this.props.setUsers(responce.data.items);
-            this.props.setUsersCount(responce.data.totalCount);
-        });
+const Users = (props) => {
+    
+    let totalPageCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pages = [];
+    for(let i = 1; i <= totalPageCount; i++) {
+        pages.push(i);
     }
 
-    setCurrentPage = (page) => {
-        this.props.setCurrentPage(page);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`).then(responce => {
-            this.props.setUsers(responce.data.items);
-        });
-    }
+    let pagination = pages.map((page) => {
+        return <div 
+                key={page}
+                className={props.currentPage === page ? styles.paginationItem + ' ' + styles.paginationItemActive : styles.paginationItem}
+                onClick={() => {props.setCurrentPage(page)}}>{page}</div>
+    });
 
-    render() {
-        
-        let totalPageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-        let pages = [];
-        for(let i = 1; i <= totalPageCount; i++) {
-            pages.push(i);
-        }
-
-        let pagination = pages.map((page) => {
-                            return <div 
-                                    key={page}
-                                    className={this.props.currentPage === page ? styles.paginationItem + ' ' + styles.paginationItemActive : styles.paginationItem}
-                                    onClick={() => {this.setCurrentPage(page)}}>{page}</div>
-                        });
-
-        return (
+    return (
+        <>
+            {props.isFetch ? <Loader/> : null}
             <div className={styles.users}>
                 <h1 className={styles.title}>Friend or enemy?</h1>
                 <div className={styles.pagination}>
@@ -42,7 +29,7 @@ class Users extends React.Component {
                         {pagination}
                     </div>
                 </div>
-                {this.props.users
+                {props.users
                     .map(user => <User 
                         key={user.id} 
                         id={user.id} 
@@ -52,8 +39,10 @@ class Users extends React.Component {
                         city={'user.location.city'} 
                         avatar={user.photos.small != null ? user.photos.small : avatarImage}
                         followed={user.followed}
-                        follow={this.props.follow}
-                        unfollow={this.props.unfollow}/>
+                        followingInProgress={props.followingInProgress}
+                        toggleFollowingInProgress={props.toggleFollowingInProgress}
+                        followTC={props.followTC}
+                        unFollowTC={props.unFollowTC}/>
                     )
                 }
                 <div className={styles.pagination}>
@@ -62,8 +51,8 @@ class Users extends React.Component {
                     </div>
                 </div>
             </div>
-        )
-    };
+        </>
+    )
 };
 
 export default Users;

@@ -1,13 +1,18 @@
 import React from 'react';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
-import ProfileInfo from './ProfileInfo/Profile.info';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 import styles from './Profile.module.css';
+import Loader from '../common/Loader/Loader';
 
 const Profile = (props) => {
 
+    if (!props.userProfileData) {
+        return <Loader/>
+    }
+    
     return (
         <div className={styles.profileWrapper}>
-            <ProfileInfo/>
+            <ProfileInfo profileData={props.userProfileData}/>
             <MyPostsContainer/>
         </div>
     )

@@ -17,7 +17,7 @@ const MyPosts = (props) => {
     };
 
     const postElements = props.profilePage.postsData
-    .map(postData => <Post key={postData.id} message={postData.message} likesCounter={postData.likes}/>);
+    .map(postData => <Post key={postData.id} message={postData.message} likesCounter={postData.likes} avatar={props.profilePage.userProfile.photos.small}/>);
 
     return (
         <div className={styles.myPosts}>

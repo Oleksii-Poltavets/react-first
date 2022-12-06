@@ -1,27 +1,30 @@
 import React from "react";
 import styles from '../Users.module.css';
+import { NavLink } from "react-router-dom";
 
 const User = (props) => {
     
     const onFollow = () => {
         let id = props.id;
-        props.follow(id);
+        props.followTC(id);
     };
 
     const onUnFollow = () => {
         let id = props.id;
-        props.unfollow(id);
+        props.unFollowTC(id);
     };
 
     return (
         <div className={styles.user}>
             <div className={styles.intro}>
-                <img src={props.avatar} alt="avatar" className={styles.avatar} />
+                <NavLink to={`/profile/${props.id}`}>
+                    <img src={props.avatar} alt="avatar" className={styles.avatar} />
+                </NavLink>
                 {props.followed ? 
-                        <button className={styles.button + ' ' + styles.gray}
+                        <button disabled={props.followingInProgress.some(userId => userId === props.id)} className={styles.button + ' ' + styles.gray}
                         onClick={onUnFollow}>Unfollow</button>
                         : 
-                        <button className={styles.button + ' ' + styles.blue}
+                        <button disabled={props.followingInProgress.some(userId => userId === props.id)} className={styles.button + ' ' + styles.blue}
                         onClick={onFollow}>Follow</button>
                 }
             </div>

@@ -2,3 +2,37 @@
     width: 100%;
     height: 185px;
 }
+
+.profileDescr {
+    display: flex;
+}
+
+.list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 0;
+}
+
+.listItem {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.listItemName {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.listItem span {
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+.avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    margin-left: 15px;
+    margin-top: 5px;
+    margin-right: 15px;
+}
