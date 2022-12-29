@@ -1,35 +1,50 @@
 import React from 'react';
 import Post from './Post/Post'
 import styles from './MyPosts.module.css';
+import { Field, Form } from 'react-final-form';
+import { composeValidators, minLength, required } from '../../../helpers/validate';
 const MyPosts = (props) => {
-
-    const textArea = React.createRef();
     
-    const onAddPost = () => {
-        let text = props.profilePage.newPostText;
+    const onSubmit = (values) => {
+        let text = values.newPostText;
         props.addPost(text);
-        textArea.current.value = '';
-    };
-
-    const onUpdateNewPostText = () => {
-        let text = textArea.current.value;
-        props.updateNewPostText(text);
     };
 
     const postElements = props.profilePage.postsData
     .map(postData => <Post key={postData.id} message={postData.message} likesCounter={postData.likes} avatar={props.profilePage.userProfile.photos.small}/>);
 
+    const NewPostArea = (props) => {
+        return (
+            <form className={styles.textarea} onSubmit={props.handleSubmit}>
+                <Field name="newPostText" validate={composeValidators(required, minLength)}>
+                    {({input, meta}) => (
+                        <div>
+                            <textarea {...input} placeholder="Type your text..."></textarea>
+                            {meta.error && meta.touched && <span>{meta.error}</span>}
+                        </div>
+                    )}
+                </Field>
+                <button className={styles.button_add} type="submit">Add post</button>
+            </form>
+        )
+    }
+
+    const NewPostForm = () => {
+        return (
+            <Form
+                onSubmit={onSubmit}
+                render={({ handleSubmit }) => (
+                    <NewPostArea handleSubmit={handleSubmit}/>
+                )}
+            >
+            </Form>
+        )
+    };
+
     return (
         <div className={styles.myPosts}>
             <h3>My posts</h3>
-            <textarea cols={12} rows={4} 
-            className={styles.textarea} 
-            placeholder='Type your text...'
-            ref={textArea}
-            onChange={onUpdateNewPostText}
-            defaultValue={props.profilePage.newPostText}></textarea>
-            <button className={styles.button_add}
-            onClick={onAddPost}>Add post</button>
+            <NewPostForm/>
             {postElements}
         </div>
     )

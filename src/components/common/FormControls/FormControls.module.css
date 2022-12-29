@@ -1,0 +1,22 @@
+.error {
+    color: tomato;
+    position: absolute;
+    top: -16px;
+    left: 0;
+    font-size: 12px;
+}
+
+.emailError {
+    color: tomato;
+    position: absolute;
+    font-size: 12px;
+    bottom: -16px;
+    padding: 3px 5px;
+    background-color: rgb(176, 176, 176);
+    border: 1px solid tomato;
+    z-index: 2;
+}
+
+.erContainer {
+    position: relative;
+}

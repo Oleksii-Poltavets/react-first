@@ -46,7 +46,7 @@ export const autorizeTC = () => {
                         }
                     ))
                 } else {
-                    alert('You need to login on https://social-network.samuraijs.com/');
+                    console.log('You need to login on https://social-network.samuraijs.com/');
                 }
             }
         )

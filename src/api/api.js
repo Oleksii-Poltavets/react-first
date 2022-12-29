@@ -13,7 +13,8 @@ export const usersAPI = {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(responce => responce.data);
     },
     getUserProfile (profileId) {
-        return instance.get(`profile/${profileId}`);
+        console.warn('Obsolete object. Use object profileAPI instead');
+        return profileAPI.getUserProfile(profileId);
     },
     follow (id) {
         return instance.post(`follow/${id}`, {});
@@ -23,11 +24,21 @@ export const usersAPI = {
     }
 }
 
+export const profileAPI = {
+    getUserProfile (profileId) {
+        return instance.get(`profile/${profileId}`);
+    },
+    getStatus (userId) {
+        return instance.get(`profile/status/${userId}`);
+    },
+    updateStatus (status) {
+        return instance.put(`profile/status`, {status});
+    },
+}
+
 export const authAPI = {
     authMe () {
-        return instance.get(`auth/me`).then(
-            responce => responce.data
-        );
+        return instance.get(`auth/me`).then(responce => responce.data);
     }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './ProfileInfo.module.css';
 import avatar from '../../../assets/images/avatar.jpg';
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = (props) => {
     
@@ -16,14 +17,19 @@ const ProfileInfo = (props) => {
                         </li>
                         <li className={styles.listItem}>
                             <span>Job status:</span> 
-                            {props.profileData.lookingForAJob ? 'Looking for a job!' : 'Employed'}
+                            <span>{props.profileData.lookingForAJob ? 'Looking for a job!' : 'Employed'}</span>
                         </li>
                         <li className={styles.listItem}>
                             <span>Job status description:</span>
-                            {props.profileData.lookingForAJobDescription}
+                            <span>{props.profileData.lookingForAJobDescription}</span>
                         </li>
                         <li className={styles.listItem}>
-                            <span>About me:</span> {props.profileData.aboutMe}
+                            <span>About me:</span>
+                            <ProfileStatus 
+                            status={props.status}
+                            getStatus={props.getStatus}
+                            updateStatus={props.updateStatus}
+                            aboutMe={props.profileData.aboutMe}/>
                         </li>
                     </ul>
                 </div>

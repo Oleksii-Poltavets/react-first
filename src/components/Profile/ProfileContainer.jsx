@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Profile from './Profile';
-import { getUserProfileTC} from '../../redux/profilePageReducer';
+import { getUserProfileTC, getStatusTC, updateStatusTC} from '../../redux/profilePageReducer';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import withAuthRedirect from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 class ProfileAPIContainer extends React.Component {
     
@@ -10,8 +12,10 @@ class ProfileAPIContainer extends React.Component {
         let profileId = this.props.router.params['*'];
         if(profileId) {
             this.props.getUserProfileTC(profileId);
+            this.props.getStatusTC(profileId);
         } else {
-            this.props.getUserProfileTC(2);
+            this.props.getUserProfileTC(26401);
+            this.props.getStatusTC(26401)
         }
     }
 
@@ -25,6 +29,7 @@ class ProfileAPIContainer extends React.Component {
 const mapStateToProps = (state) => {
     return {
         userProfileData: state.profilePage.userProfile,
+        status: state.profilePage.status
     }
 };
 
@@ -45,6 +50,8 @@ function withRouter(Component) {
     return ComponentWithRouterProp;
 }
 
-const ProfileContainer = connect(mapStateToProps, {getUserProfileTC})(withRouter(ProfileAPIContainer));
-
-export default ProfileContainer;
+export default compose (
+    withAuthRedirect,
+    connect(mapStateToProps, {getUserProfileTC, getStatusTC, updateStatusTC}),
+    withRouter
+)(ProfileAPIContainer);

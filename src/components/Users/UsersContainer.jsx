@@ -2,7 +2,8 @@ import React from "react";
 import Users from './Users';
 import { setCurrentPage, toggleFollowingInProgress, getUsersTC, setUsersPageTC, followTC, unFollowTC} from '../../redux/usersPageReducer';
 import { connect } from 'react-redux';
-class UsersAPIContainer extends React.Component {
+import { compose } from "redux";
+class UsersContainer extends React.Component {
     
     componentDidMount() {
         this.props.getUsersTC(this.props.currentPage, this.props.pageSize);
@@ -39,7 +40,6 @@ let mapStateToProps = (state) => {
         followingInProgress: state.usersPage.followingInProgress,
     }
 };
-
-const UsersContainer = connect(mapStateToProps, {setCurrentPage, toggleFollowingInProgress, getUsersTC, setUsersPageTC, followTC, unFollowTC})(UsersAPIContainer);
-
-export default UsersContainer;
+export default compose(
+    connect(mapStateToProps, {setCurrentPage, toggleFollowingInProgress, getUsersTC, setUsersPageTC, followTC, unFollowTC})
+)(UsersContainer);
