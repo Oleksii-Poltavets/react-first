@@ -9,10 +9,21 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import UsersContainer from './components/Users/UsersContainer';
 import LoginPage from './components/Login/Login';
+import { connect } from 'react-redux';
+import { initializeTC } from './redux/appInitializingReducer';
+import Loader from './components/common/Loader/Loader';
 
-const App = () => {
-    return (
-        <BrowserRouter>
+class App extends React.Component {
+
+    componentDidMount() {
+        this.props.initializeTC();
+    }
+
+    render() {
+        if(!this.props.initialized) {
+            return <Loader/>
+        }
+        return <BrowserRouter>
             <div className='app-wrapper'>
                 <HeaderContainer/>
                 <NavBar/>
@@ -28,7 +39,14 @@ const App = () => {
                 </div>
             </div>
         </BrowserRouter>
-    );
+    };
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        isAuth: state.userAuth.isAuth,
+        initialized: state.appInitialize.initialized
+    }
+}
+
+export default connect(mapStateToProps, {initializeTC})(App);

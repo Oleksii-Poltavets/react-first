@@ -6,11 +6,16 @@ const Header = (props) => {
     return (
         <header className={styles.header}>
             <img className={styles.logo} src="/images/logo.png" alt="logo" />
-            <div className={styles.loginButton}>
-                {
-                    props.isAuth ? props.login : <NavLink to="/login" className={styles.login}>Login</NavLink>
-                }
-            </div>
+            {
+                props.isAuth ?
+                <div className={styles.headerButtons}>
+                    <div className={styles.loginButton + ' ' + styles.login}
+                    onClick={props.logoutTC}>
+                        Logout
+                    </div>
+                </div>
+                : <NavLink to="/login" className={styles.loginButton + ' ' + styles.login}>Login</NavLink>
+            }
         </header>
     )
 }

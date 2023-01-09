@@ -1,13 +1,13 @@
 import { authAPI } from "../api/api";
 
 const SET_USER_DATA = 'SET-USER-DATA';
-// const TOGGLE_AUTH = 'TOGGLE-AUTH';
 
 let initialState = {
     id: null,
     login: null,
     email: null,
     isAuth: false,
+    errorMessages: []
 };
 
 const usersPageReducer = (state = initialState, action) => {
@@ -17,11 +17,6 @@ const usersPageReducer = (state = initialState, action) => {
                 ...state,
                 ...action.userData
             };
-        // case TOGGLE_AUTH:
-        //     return {
-        //         ...state,
-        //         isAuth: action.isAuth
-        //     };
         default: 
             return state;
     }
@@ -29,25 +24,65 @@ const usersPageReducer = (state = initialState, action) => {
 
 // action creators
 export const setUserData = (userData) => ({type: SET_USER_DATA, userData});
-// export const toggleAuth = (isAuth) => ({type: TOGGLE_AUTH, isAuth});
 
 //thunk creators
 export const autorizeTC = () => {
     return (dispatch) => {
-        authAPI.authMe().then(
-            responce => {
-                if(responce.resultCode === 0) {
+        return authAPI.authMe().then(
+            response => {
+                if(response.resultCode === 0) {
                     dispatch(setUserData(
                         {
-                            id: responce.data.id,
-                            login: responce.data.login,
-                            email: responce.data.email,
+                            id: response.data.id,
+                            login: response.data.login,
+                            email: response.data.email,
                             isAuth: true
                         }
                     ))
                 } else {
                     console.log('You need to login on https://social-network.samuraijs.com/');
                 }
+            }
+        )
+    }
+}
+
+export const loginTC = (email, password, rememberMe) => {
+    return (dispatch) => {
+        authAPI.login(email, password, rememberMe).then(
+            response => {
+                if(response.resultCode === 0) {
+                    dispatch(setUserData(
+                        {
+                            id: response.data.userId,
+                            isAuth: true,
+                            errorMessages: []
+                        }
+                    ))
+                } else if (response.resultCode === 1){
+                    dispatch(setUserData(
+                        {
+                            errorMessages: [...response.messages]
+                        }
+                    ))
+                }
+            }
+        )
+    }
+}
+
+export const logoutTC = () => {
+    return (dispatch) => {
+        authAPI.logout().then(
+            response => {
+                dispatch(setUserData(
+                    {
+                        id: null,
+                        email: null,
+                        password: null,
+                        isAuth: false
+                    }
+                ))
             }
         )
     }
