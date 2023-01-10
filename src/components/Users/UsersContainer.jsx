@@ -3,7 +3,7 @@ import Users from './Users';
 import { setCurrentPage, toggleFollowingInProgress, getUsersTC, setUsersPageTC, followTC, unFollowTC} from '../../redux/usersPageReducer';
 import { connect } from 'react-redux';
 import { compose } from "redux";
-import { getCurrentPage, getFollowingInProgress, getIsFetch, getPageSize, getTotalUsersCount, getUsers } from "../../helpers/usersSelector";
+import { getCurrentPage, getFollowingInProgress, getIsFetch, getPageSize, getTotalUsersCount, getUsers } from "../../helpers/usersSelectors";
 
 class UsersContainer extends React.Component {
     
@@ -16,6 +16,7 @@ class UsersContainer extends React.Component {
     }
 
     render() {
+        // console.log('render');
         return  <Users
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
@@ -33,6 +34,7 @@ class UsersContainer extends React.Component {
 };
 
 let mapStateToProps = (state) => {
+    // console.log('mapStateToProps');
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
