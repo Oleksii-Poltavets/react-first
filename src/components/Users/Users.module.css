@@ -9,28 +9,6 @@
     margin-top: 0;
 }
 
-.pagination {
-    padding: 15px 0 0;
-    max-width: 200px;
-    overflow-x: scroll;
-    margin: 0 auto;
-    margin-bottom: 15px;
-}
-.paginationContainer {
-    display: flex;
-    max-width: auto;
-}
-
-.paginationItem {
-    padding: 0 5px;
-    cursor: pointer;
-    color: #9a9fbf;
-}
-
-.paginationItemActive {
-    font-weight: 700;
-}
-
 .user {
     display: flex;
     padding: 15px;

@@ -5,7 +5,7 @@ const Header = (props) => {
     
     return (
         <header className={styles.header}>
-            <img className={styles.logo} src="/images/logo.png" alt="logo" />
+            <img className={styles.logo} src="./images/logo.png" alt="logo" />
             {
                 props.isAuth ?
                 <div className={styles.headerButtons}>

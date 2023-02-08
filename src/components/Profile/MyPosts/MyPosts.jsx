@@ -3,8 +3,8 @@ import Post from './Post/Post'
 import styles from './MyPosts.module.css';
 import { Field, Form } from 'react-final-form';
 import { composeValidators, minLength, required } from '../../../helpers/validate';
-const MyPosts = (props) => {
-    
+
+const MyPosts = React.memo(props => {
     const onSubmit = (values) => {
         let text = values.newPostText;
         props.addPost(text);
@@ -40,7 +40,7 @@ const MyPosts = (props) => {
             </Form>
         )
     };
-
+    
     return (
         <div className={styles.myPosts}>
             <h3>My posts</h3>
@@ -48,6 +48,6 @@ const MyPosts = (props) => {
             {postElements}
         </div>
     )
-}
+})
 
 export default MyPosts;

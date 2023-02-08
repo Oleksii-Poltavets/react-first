@@ -31,11 +31,12 @@ export const autorizeTC = () => {
         return authAPI.authMe().then(
             response => {
                 if(response.resultCode === 0) {
+                    const {id, login, email} = response.data;
                     dispatch(setUserData(
                         {
-                            id: response.data.id,
-                            login: response.data.login,
-                            email: response.data.email,
+                            id: id,
+                            login: login,
+                            email: email,
                             isAuth: true
                         }
                     ))

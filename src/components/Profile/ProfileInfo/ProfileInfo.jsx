@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ProfileInfo.module.css';
 import avatar from '../../../assets/images/avatar.jpg';
-import ProfileStatus from './ProfileStatus';
+import ProfileStatus from './ProfileStatusWithHooks';
 
 const ProfileInfo = (props) => {
     

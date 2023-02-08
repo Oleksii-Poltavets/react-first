@@ -7,7 +7,6 @@ const Post = (props) => {
         <div className={styles.post}>
             <div>
                 <img className={styles.avatar} src={`${props.avatar ? props.avatar : avatar}`} alt='img'/>
-                ava+descr
                 <div>
                     <span>
                         {props.likesCounter} likes

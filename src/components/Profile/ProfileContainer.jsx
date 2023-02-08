@@ -2,16 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Profile from './Profile';
 import { getUserProfileTC, getStatusTC, updateStatusTC} from '../../redux/profilePageReducer';
-import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { compose } from 'redux';
+import withRouter from '../../helpers/withRouter';
 
 class ProfileAPIContainer extends React.Component {
     
-    componentDidMount(props) {
-        
+    componentDidMount() {
         let profileId = this.props.router.params['*'];
         if(!profileId) {
             profileId = this.props.autorizedUserId;
+            if(!profileId) {
+                return;
+            }
         }
         this.props.getUserProfileTC(profileId);
         this.props.getStatusTC(profileId);
@@ -35,23 +38,6 @@ const mapStateToProps = (state) => {
         isAuth: state.userAuth.isAuthd
     }
 };
-
-// wrapper to use react router's v6 hooks in class component(to use HOC pattern, like in router v5)
-function withRouter(Component) {
-    function ComponentWithRouterProp(props) {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{ location, navigate, params }}
-            />
-        );
-    }
-
-    return ComponentWithRouterProp;
-}
 
 export default compose (
     connect(mapStateToProps, {getUserProfileTC, getStatusTC, updateStatusTC}),

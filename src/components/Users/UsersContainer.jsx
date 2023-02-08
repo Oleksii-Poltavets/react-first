@@ -1,6 +1,6 @@
 import React from "react";
 import Users from './Users';
-import { setCurrentPage, toggleFollowingInProgress, getUsersTC, setUsersPageTC, followTC, unFollowTC} from '../../redux/usersPageReducer';
+import { setCurrentPage, getUsersTC, setUsersPageTC, followTC, unFollowTC} from '../../redux/usersPageReducer';
 import { connect } from 'react-redux';
 import { compose } from "redux";
 import { getCurrentPage, getFollowingInProgress, getIsFetch, getPageSize, getTotalUsersCount, getUsers } from "../../helpers/usersSelectors";
@@ -8,15 +8,16 @@ import { getCurrentPage, getFollowingInProgress, getIsFetch, getPageSize, getTot
 class UsersContainer extends React.Component {
     
     componentDidMount() {
-        this.props.getUsersTC(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize} = this.props;
+        this.props.getUsersTC(currentPage, pageSize);
     }
 
     setCurrentUsersPage = (page) => {
-        this.props.setUsersPageTC(page, this.props.pageSize);
+        const {pageSize} = this.props;
+        this.props.setUsersPageTC(page, pageSize);
     }
 
     render() {
-        // console.log('render');
         return  <Users
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
@@ -25,7 +26,6 @@ class UsersContainer extends React.Component {
                 isFetch={this.props.isFetch}
                 setCurrentPage={this.setCurrentUsersPage}
                 followingInProgress={this.props.followingInProgress}
-                toggleFollowingInProgress={this.props.toggleFollowingInProgress}
                 followTC={this.props.followTC}
                 unFollowTC={this.props.unFollowTC}
                 />
@@ -34,7 +34,6 @@ class UsersContainer extends React.Component {
 };
 
 let mapStateToProps = (state) => {
-    // console.log('mapStateToProps');
     return {
         users: getUsers(state),
         pageSize: getPageSize(state),
@@ -45,5 +44,5 @@ let mapStateToProps = (state) => {
     }
 };
 export default compose(
-    connect(mapStateToProps, {setCurrentPage, toggleFollowingInProgress, getUsersTC, setUsersPageTC, followTC, unFollowTC})
+    connect(mapStateToProps, {setCurrentPage, getUsersTC, setUsersPageTC, followTC, unFollowTC})
 )(UsersContainer);

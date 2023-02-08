@@ -10,15 +10,10 @@ import { Navigate } from "react-router-dom";
 const AutorisationForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field name="email"
-            validate={composeValidators(required, minLength)}
-            component={Input}
-            className={styles.input}
+            <Field name="email" validate={composeValidators(required, minLength)} component={Input} className={styles.input}
             type="email"
             placeholder="Email"/>
-            <Field name="password"
-            validate={composeValidators(required, minLength)}
-            component={Input}
+            <Field name="password" validate={composeValidators(required, minLength)} component={Input}
             type="password"
             placeholder="Password"
             className={styles.input}/>

@@ -17,34 +17,28 @@ let initialState = {
     followingInProgress: [],
 };
 
+const  followUnfollowFlow = (state, action, boolean) => {
+        return {
+            ...state,
+            users: state.users.map(user => {
+                    if(user.id === action.userId) {
+                        return {
+                            ...user,
+                            followed: boolean
+                        }
+                    } 
+                    return user;
+                })
+        }
+    }
+
 const usersPageReducer = (state = initialState, action) => {
+
     switch(action.type) {
         case FOLLOW:
-            return {
-                ...state,
-                users: state.users.map(user => {
-                    if(user.id === action.userId) {
-                        return {
-                            ...user,
-                            followed: true
-                        }
-                    } 
-                    return user;
-                }),
-            };
+            return followUnfollowFlow(state, action, true);
         case UNFOLLOW:
-            return {
-                ...state,
-                users: state.users.map(user => {
-                    if(user.id === action.userId) {
-                        return {
-                            ...user,
-                            followed: false
-                        }
-                    } 
-                    return user;
-                }),
-            };
+            return followUnfollowFlow(state, action, false);;
         case SET_USERS:
             return {...state, users: action.users};
         case SET_CURRENT_PAGE:
@@ -80,8 +74,8 @@ export const getUsersTC = (currentPage, page) => {
         dispatch(toggleIsFetch(true));
         usersAPI.getUsers(currentPage, page).then( data => {
             dispatch(setUsers(data.items));
-            dispatch(setTotalUsersCount(data.totalCount));
             dispatch(toggleIsFetch(false));
+            dispatch(setTotalUsersCount(data.totalCount));
         });
     };
 }
@@ -95,32 +89,31 @@ export const setUsersPageTC = (page, pageSize) => {
         });
     }
 }
-export const followTC = (id) => {
+
+const followUnfollowTC = (boolean, id, apiRequest, action, dispatch) => {
     return (dispatch) => {
         dispatch(toggleFollowingInProgress(true, id));
-        usersAPI.follow(id).then(
-            responce => {
-                if(responce.data.resultCode === 0) {
-                    dispatch(followSucces(id));
-                    dispatch(toggleFollowingInProgress(false, id));
+        apiRequest.then(
+            response => {
+                if(response.data.resultCode === 0) {
+                    dispatch(action(id));
+                    dispatch(toggleFollowingInProgress(boolean, id));
                 }
             }
         )
     }
 }
 
+const disp = (dispatch) => dispatch;
+
+export const followTC = (id) => {
+    const request = usersAPI.follow(id);
+    return followUnfollowTC(false, id, request, followSucces, disp);
+}
+
 export const unFollowTC = (id) => {
-    return (dispatch) => {
-        dispatch(toggleFollowingInProgress(true, id));
-        usersAPI.unFollow(id).then(
-            responce => {
-                if(responce.data.resultCode === 0) {
-                    dispatch(unfollowSucces(id));
-                    dispatch(toggleFollowingInProgress(false, id));
-                }
-            }
-        )
-    }
+    const request = usersAPI.unFollow(id);
+    return followUnfollowTC(false, id, request, unfollowSucces, disp);
 }
 
 export default usersPageReducer;

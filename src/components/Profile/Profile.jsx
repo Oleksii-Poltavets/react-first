@@ -5,7 +5,6 @@ import styles from './Profile.module.css';
 import Loader from '../common/Loader/Loader';
 
 const Profile = (props) => {
-    
     if (!props.userProfileData) {
         return <Loader/>
     }

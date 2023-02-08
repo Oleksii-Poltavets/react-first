@@ -6,11 +6,12 @@ import { Field, Form } from 'react-final-form';
 import { required } from '../../helpers/validate';
 
 const Dialogs = (props) => {
+    const {dialogItemsData, messagesData} = props.dialogsPage;
 
-    const dialogsElements = props.dialogsPage.dialogItemsData
+    const dialogsElements = dialogItemsData
     .map(dialog => <DialogItem key={dialog.id} avatar={dialog.avatar} name={dialog.name} id={dialog.id}/>);
     
-    const messagesElements = props.dialogsPage.messagesData
+    const messagesElements = messagesData
         .map((message) =>  {
             if(message.from === 'from') {
                 return <Message key={message.id} className={`${styles.message}`} avatar={message.avatar} messageText={message.message} id={message.id}/>
@@ -57,13 +58,6 @@ const Dialogs = (props) => {
                 </div>
                 <div className={styles.sendMessage}>
                     <SendMessageForm/>
-                    {/* <textarea className={styles.sendMessage__textArea} 
-                    name="addMessage" 
-                    placeholder='Message'
-                    ref={textArea}
-                    value={props.dialogsPage.newMessageText}
-                    onChange={updateNewMessageText}></textarea>
-                    <button onClick={sendMessage} className={styles.sendButton}>Send</button> */}
                 </div>
             </div>
         </div>
