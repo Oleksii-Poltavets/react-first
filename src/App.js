@@ -12,6 +12,7 @@ import LoginPage from './components/Login/Login';
 import { connect } from 'react-redux';
 import { initializeTC } from './redux/appInitializingReducer';
 import Loader from './components/common/Loader/Loader';
+import MusicContainer from './components/Music/Music';
 
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
@@ -37,7 +38,7 @@ class App extends React.Component {
                             <Route path='/dialogs/*' element={<DialogsContainer/>} />
                             <Route path='/users/*' element={<UsersContainer/>} />
                             <Route path='/news/*' element={<News/>} />
-                            <Route path='/music/*' element={<Music/>} />
+                            <Route path='/music/*' element={<MusicContainer/>} />
                             <Route path='/login/*' element={<LoginPage/>} />
                         </Routes>
                     </Suspense>

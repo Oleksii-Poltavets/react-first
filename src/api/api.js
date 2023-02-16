@@ -34,6 +34,13 @@ export const profileAPI = {
     updateStatus (status) {
         return instance.put(`profile/status`, {status});
     },
+    changeProfilePicture (imageFile) {
+        return instance.put('profile/photo', imageFile, {
+            headers: {
+            'Content-Type': 'multipart/form-data'
+            }
+        });
+    }
 }
 
 export const authAPI = {

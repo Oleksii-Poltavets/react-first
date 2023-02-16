@@ -2,8 +2,9 @@ import { profileAPI } from "../api/api";
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
-const SET_STATUS = 'SET_STATUS';
-const UPDATE_STATUS = 'UPDATE_STATUS';
+const SET_STATUS = 'SET-STATUS';
+const UPDATE_STATUS = 'UPDATE-STATUS';
+const CHANGE_PROFILE_IMAGE = 'CHANGE-PROFILE-IMAGE';
 
 let initialState = {
     postsData: [
@@ -12,7 +13,7 @@ let initialState = {
         {message: 'Hope yall doing well!', id: 3, likes: 15},
     ],
     userProfile: null,
-    status: ''
+    status: '',
 };
 
 const profilePageReducer = (state = initialState, action) => {
@@ -42,6 +43,11 @@ const profilePageReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status,
             };
+        case CHANGE_PROFILE_IMAGE:
+            return {
+                ...state,
+                userProfile: {...state.userProfile, photos: action.image},
+            };
         default:
             return state;
     }
@@ -52,6 +58,7 @@ export const addPost = (postText) => ({type: ADD_POST, postText});
 export const setUserProfile = (userProfile) => ({type: SET_USER_PROFILE, userProfile});
 export const setStatus = (status) => ({type: SET_STATUS, status});
 export const updateStatus = (status) => ({type: UPDATE_STATUS, status});
+export const changeProfileImage = (image) => ({type: CHANGE_PROFILE_IMAGE, image})
 
 //thunk creators
 export const getUserProfileTC = (profileId) => {
@@ -80,6 +87,16 @@ export const updateStatusTC = (status) => {
             dispatch(updateStatus(status))
         );
     }
+}
+
+export const changeImageTC = (imageFile) => {
+    return (dispatch) => {
+        profileAPI.changeProfilePicture(imageFile).then(
+            response => {
+                dispatch(changeProfileImage(response.data.data.photos));
+            }
+        );
+    };
 }
 
 export default profilePageReducer;

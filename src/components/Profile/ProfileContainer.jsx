@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Profile from './Profile';
-import { getUserProfileTC, getStatusTC, updateStatusTC} from '../../redux/profilePageReducer';
+import { getUserProfileTC, getStatusTC, updateStatusTC, changeImageTC} from '../../redux/profilePageReducer';
 import { Navigate } from "react-router-dom";
 import { compose } from 'redux';
 import withRouter from '../../helpers/withRouter';
 
 class ProfileAPIContainer extends React.Component {
-    
-    componentDidMount() {
+
+    refreshProfile() {
         let profileId = this.props.router.params['*'];
         if(!profileId) {
             profileId = this.props.autorizedUserId;
@@ -19,13 +19,24 @@ class ProfileAPIContainer extends React.Component {
         this.props.getUserProfileTC(profileId);
         this.props.getStatusTC(profileId);
     }
+    
+    componentDidMount() {
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        
+        if(this.props.router.params['*'] !== prevProps.router.params['*']) {
+            this.refreshProfile();
+        }
+    }
 
     render () {
         if(!this.props.router.params['*'] && !this.props.autorizedUserId) {
             return <Navigate to="/login"/>
         }
         return (
-            <Profile {...this.props}/>
+            <Profile isOwner={!this.props.router.params['*']}{...this.props}/>
         )
     }
 }
@@ -40,6 +51,6 @@ const mapStateToProps = (state) => {
 };
 
 export default compose (
-    connect(mapStateToProps, {getUserProfileTC, getStatusTC, updateStatusTC}),
+    connect(mapStateToProps, {getUserProfileTC, getStatusTC, updateStatusTC, changeImageTC}),
     withRouter
 )(ProfileAPIContainer);
